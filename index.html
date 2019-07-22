@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Javascript Responsive slider</title>
+	<style type="text/css">
+		.slider{
+			width: 750px;
+			height: 300px;
+			border: 1px solid gray;
+			margin: 0 auto;
+			position: relative;
+		}	
+		.item{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+		}
+		.item>img{
+			width: 100%;
+			height: 100%;
+		}
+		.prev {
+			position: absolute;
+			top: 46%;
+			z-index: 1;
+		}
+		.next {
+			position: absolute;
+			top: 46%;
+			right: 0;
+			z-index: 1;
+
+		}
+		@media screen and (max-width: 480px){
+			.slider{
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="slider">
+		<div class="item">
+			<img src="img/1.jpg">
+		</div>
+		<div class="item">
+			<img src="img/2.jpg">
+		</div>
+		<div class="item">
+			<img src="img/3.jpg">
+		</div>
+		<div class="item">
+			<img src="img/4.jpg">
+		</div>
+		<div class="pagi">
+			<button onclick="slider('-')" class="prev">Prev</button>
+			<button onclick="slider('+')" class="next">Next</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var gv = 0;
+		//setInterval(function(){ slider('+'); }, 2000);
+		setInterval(
+			function(){
+				slider('+');
+			},2000);
+
+		var item = document.getElementsByClassName('item');
+		var count = item.length;
+		for (var i = 0; i < count; i++) {
+			if (i == 0) {
+				item[i].style.zIndex='1';
+				item[i].style.opacity='1';
+
+			}else{
+				item[i].style.zIndex='0';
+				item[i].style.opacity='0';
+			}
+		}
+
+		function slider(peram) {
+			var x = 0;
+			var item = document.getElementsByClassName('item');
+			var count = item.length;
+			var last = count-1;
+
+			if (peram == '+') {
+				if (last != gv) {
+					x = gv+1;
+				}else{
+					x = 0;
+				}
+			}
+			if (peram == '-') {
+				if (gv==0) {
+					x = last;
+				}else{
+					x = gv-1;
+				}
+			}
+
+
+			for (var i = 0; i < count; i++) {
+				if (i == x) {
+					item[i].style.zIndex='1';
+					item[i].style.opacity='1';
+					item[i].style.transition='1s';
+				}else{
+					item[i].style.zIndex='0';
+					item[i].style.opacity='0';
+				}
+			}
+			gv= x;
+		}
+	</script>
+</body>
+</html>
